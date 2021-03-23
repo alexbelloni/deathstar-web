@@ -7,6 +7,7 @@ function App() {
   const [loggedUser, setLoggedUser] = useState();
   const [error, setError] = useState();
   const [user, setUser] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
 
   const handleClick = e => {
     if (e) e.preventDefault();
@@ -17,6 +18,7 @@ function App() {
   }
 
   function login(data) {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_BASE_URL}login`, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
@@ -33,11 +35,16 @@ function App() {
       .then(res => {
         if (res.error) {
           setError(res.error);
+          setLoading(false);
         } else {
           setLoggedUser(res);
+          setLoading(false);
         }
       })
-      .catch(e => setError(e.message));
+      .catch(e => {
+        setError(e.message);
+        setLoading(false);
+      });
   }
 
   const signOut = () => {
@@ -53,7 +60,7 @@ function App() {
 
   const handleTrial = e => {
     login({
-      "email": process.env.REACT_APP_TRIAL_EMAIL, 
+      "email": process.env.REACT_APP_TRIAL_EMAIL,
       "password": process.env.REACT_APP_TRIAL_PASSWORD
     })
   }
@@ -65,23 +72,28 @@ function App() {
           <form>
             <fieldset className="clearfix">
               <p>
-                <span className="fontawesome-envelope"></span>
+                <span className="fa fa-envelope"></span>
                 <input type="text" name='email' value={user.email} onChange={handleChange}
                   placeholder='e-mail' required />
               </p>
-              <p><span className="fontawesome-lock"></span>
+              <p><span className="fa fa-lock"></span>
                 <input type="password" name='password' value={user.password} onChange={handleChange}
                   placeholder='password' required />
               </p>
               <p>
-                <input type="submit" value="Sign In" onClick={handleClick} />
+                <input type="submit" value="Sign In" onClick={handleClick}></input>
               </p>
             </fieldset>
           </form>
           <footer>
-            <p>Not a member? <span className="link">Sign up now</span><span className="fontawesome-arrow-right"></span></p>
-            <p onClick={handleTrial}><span className="link">Free Trial</span><span className="fontawesome-arrow-right"></span></p>
-            {error && <p>{error.toUpperCase()}</p>}
+            {loading ? <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+              : (
+                <>
+                  <p>Not a member? <span className="link">Sign up now</span><span className="fa fa-arrow-right"></span></p>
+                  <p onClick={handleTrial}><span className="link">Free Trial</span><span className="fa fa-arrow-right"></span></p>
+                  {error && <p>{error.toUpperCase()}</p>}
+                </>
+              )}
           </footer>
         </div>
       </div>

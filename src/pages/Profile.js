@@ -4,10 +4,11 @@ import './Profile.css';
 const Profile = (props) => {
     const [users, setUsers] = useState();
     const [token] = useState(props.user.token);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (!token) return
-
+        setLoading(true);
         fetch(`${process.env.REACT_APP_BASE_URL}users`, {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
@@ -23,9 +24,13 @@ const Profile = (props) => {
         })
             .then(res => res.json())
             .then(res => {
-                setUsers(res)
+                setUsers(res);
+                setLoading(false);
             })
-            .catch(e => console.log(e));
+            .catch(e => {
+                console.log(e);
+                setLoading(false);
+            });
     }, [token]);
 
     const handleClick = () => {
@@ -45,17 +50,18 @@ const Profile = (props) => {
             <div className="separator"></div>
             <div className="users">
                 <p>Other Users:</p>
-                {users && users.filter(u => u.email !== props.user.email).sort((a, b) => a.name - b.name).map((u, i) => (
+                {loading && <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>}
+                {!loading && users && users.filter(u => u.email !== props.user.email).sort((a, b) => a.name - b.name).map((u, i) => (
                     <div key={i} className="user">
                         <div className="info-user">
-                            <span className="username">{u.name}</span>
+                            <span className="username"><span className="fa fa-user"></span> {u.name}</span>
                             <span className="email">{u.country || "-"}</span>
                         </div>
                     </div>
                 ))}
             </div>
             <div className="separator"></div>
-            <p onClick={handleClick}><span className="link">Sign out</span><span className="fontawesome-arrow-right"></span></p>
+            <p onClick={handleClick}><span className="link">Sign out</span><span className="fa fa-arrow-right"></span></p>
         </div>
     )
 }
