@@ -1,0 +1,53 @@
+.profile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.profile .avatar {
+    max-width: 100px;
+    border-radius: 50%;
+}
+
+.profile .info {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.profile .info>* {
+    margin: 2px 0;
+}
+
+.profile .info .username {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.separator {
+    margin: 10px 0;
+    height: 5px;
+    width: 100%;
+    background-color: #d44179;
+}
+
+.users p {
+    margin-bottom: 5px;
+}
+
+.users .info-user {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.users .info-user .username {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
