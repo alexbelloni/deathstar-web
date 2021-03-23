@@ -3,9 +3,10 @@ import './Profile.css';
 
 const Profile = (props) => {
     const [users, setUsers] = useState();
+    const [token] = useState(props.user.token);
 
     useEffect(() => {
-        if (!props.user.token) return
+        if (!token) return
 
         fetch(`${process.env.REACT_APP_BASE_URL}users`, {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -14,7 +15,7 @@ const Profile = (props) => {
             credentials: 'same-origin', // include, *same-origin, omit
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `JWT ${props.user.token}`
+                'Authorization': `JWT ${token}`
             },
             redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
@@ -25,7 +26,7 @@ const Profile = (props) => {
                 setUsers(res)
             })
             .catch(e => console.log(e));
-    }, []);
+    }, [token]);
 
     const handleClick = () => {
         props.signOut();
@@ -54,7 +55,7 @@ const Profile = (props) => {
                 ))}
             </div>
             <div className="separator"></div>
-            <p onClick={handleClick}><a href="#">Sign out</a><span className="fontawesome-arrow-right"></span></p>
+            <p onClick={handleClick}><span className="link">Sign out</span><span className="fontawesome-arrow-right"></span></p>
         </div>
     )
 }

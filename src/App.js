@@ -79,8 +79,8 @@ function App() {
             </fieldset>
           </form>
           <footer>
-            <p>Not a member? <a href="#">Sign up now</a><span className="fontawesome-arrow-right"></span></p>
-            <p onClick={handleTrial}><a href="#">Free Trial</a><span className="fontawesome-arrow-right"></span></p>
+            <p>Not a member? <span className="link">Sign up now</span><span className="fontawesome-arrow-right"></span></p>
+            <p onClick={handleTrial}><span className="link">Free Trial</span><span className="fontawesome-arrow-right"></span></p>
             {error && <p>{error.toUpperCase()}</p>}
           </footer>
         </div>

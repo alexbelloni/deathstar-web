@@ -30,6 +30,16 @@ a:hover {
   text-decoration: underline;
 }
 
+.link {
+  color: #eee;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
 .fontawesome-arrow-right {
   margin-left: 3px;
 }
