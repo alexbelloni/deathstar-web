@@ -1,7 +1,9 @@
 import './Login.css';
 import { useState } from "react";
 import DataSender from '../api/DataSender';
-import { Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import Button from '../components/Button';
+import Arrow from '../components/Arrow';
 require('dotenv').config()
 
 const Login = (props) => {
@@ -32,7 +34,7 @@ const Login = (props) => {
                     setError(res.error);
                     setLoading(false);
                 } else {
-                    props.setUser(res, () =>setRedirect('/profile'));
+                    props.setUser(res, () => setRedirect('/profile'));
                     setLoading(false);
                 }
             })
@@ -54,14 +56,14 @@ const Login = (props) => {
         })
     }
 
-    const handleNewUser = e =>{
+    const handleNewUser = e => {
         setRedirect("edit")
     }
 
     if (redirect) return <Redirect to={redirect} />
-    
+
     return (
-        <div className="container">
+        <>
             {redirect ? <Redirect to={redirect} />
                 : (
                     <div id="login">
@@ -76,24 +78,22 @@ const Login = (props) => {
                                     <input type="password" name='password' value={user.password} onChange={handleChange}
                                         placeholder='password' required />
                                 </p>
-                                <p>
-                                    <input type="submit" value="Sign In" onClick={handleClick}></input>
-                                </p>
+                                <Button caption="Sign In" click={handleClick} />
                             </fieldset>
                         </form>
                         <div className="footer">
                             {loading ? <i className="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
                                 : (
                                     <>
-                                        <p onClick={handleNewUser}>Not a member? <span className="link">Sign up now</span><span className="fa fa-arrow-right"></span></p>
-                                        <p onClick={handleTrial}><span className="link">Free Trial</span><span className="fa fa-arrow-right"></span></p>
+                                        <Arrow caption="Not a member? Sign up now" click={handleNewUser} />
+                                        <Arrow caption="Free Trial" click={handleTrial} />
                                         {error && <p>{error.toUpperCase()}</p>}
                                     </>
                                 )}
                         </div>
                     </div>
                 )}
-        </div>
+        </>
     );
 }
 

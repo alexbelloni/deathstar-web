@@ -1,7 +1,8 @@
 import './UserEdit.css';
 import { useState } from "react";
 import DataSender from '../api/DataSender';
-import { Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import Button from '../components/Button';
 
 const UserEdit = (props) => {
     const [error, setError] = useState();
@@ -15,6 +16,12 @@ const UserEdit = (props) => {
     }
 
     function save() {
+
+        if (!user || !user.name || !user.email || !user.password) {
+            setError("Fields required");
+            return
+        }
+
         setLoading(true);
 
         const data = user;
@@ -31,7 +38,7 @@ const UserEdit = (props) => {
                     setError(res.error);
                     setLoading(false);
                 } else {
-                    props.setUser(res, ()=>setRedirect("/"));
+                    props.setUser(res, () => setRedirect("/"));
                     setLoading(false);
                 }
             })
@@ -46,51 +53,54 @@ const UserEdit = (props) => {
         setUser(newUser);
     }
 
+    const handleCancelClick = e => {
+        if (e) e.preventDefault();
+        setRedirect("/");
+    }
+
     if (redirect) return <Redirect to={redirect} />
 
     return (
-        <div className="container">
-            <div id="login">
-                <form>
-                    <fieldset className="clearfix">
-                        <p>
-                            <span className="fa fa-user"></span>
-                            <input type="text" name='name' value={user && user.name} onChange={handleChange}
-                                placeholder='name' required />
-                        </p>
-                        <p>
-                            <span className="fa fa-envelope"></span>
-                            <input type="text" name='email' value={user && user.email} onChange={handleChange}
-                                placeholder='e-mail' required />
-                        </p>
-                        <p><span className="fa fa-lock"></span>
-                            <input type="password" name='password' value={user && user.password} onChange={handleChange}
-                                placeholder='password' required />
-                        </p>
-                        <p><span className="fa fa-lock"></span>
-                            <input type="password" name='passwordconfirm' value={user && user.passwordconfirm} onChange={handleChange}
-                                placeholder='confirm password' required />
-                        </p>
-                        <p>
-                            <span className="fa fa-globe"></span>
-                            <input type="text" name='country' value={user && user.country} onChange={handleChange}
-                                placeholder='country' required />
-                        </p>
-                        <p>
-                            <input type="submit" value="Save" onClick={handleClick}></input>
-                        </p>
-                    </fieldset>
-                </form>
-                <footer>
-                    {loading ? <i className="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
-                        : (
-                            <>
-                                <p onClick={()=>setRedirect("/")}><span className="link">Cancel</span><span className="fa fa-arrow-right"></span></p>
-                                {error && <p>{error.toUpperCase()}</p>}
-                            </>
-                        )}
-                </footer>
-            </div>
+        <div id="user-edit">
+            <form>
+                <fieldset className="clearfix">
+                    <p>
+                        <span className="fa fa-user"></span>
+                        <input type="text" name='name' value={user && user.name} onChange={handleChange}
+                            placeholder='name *' required />
+                    </p>
+                    <p>
+                        <span className="fa fa-envelope"></span>
+                        <input type="text" name='email' value={user && user.email} onChange={handleChange}
+                            placeholder='e-mail *' required />
+                    </p>
+                    <p><span className="fa fa-lock"></span>
+                        <input type="password" name='password' value={user && user.password} onChange={handleChange}
+                            placeholder='password *' required />
+                    </p>
+                    <p><span className="fa fa-lock"></span>
+                        <input type="password" name='passwordconfirm' value={user && user.passwordconfirm} onChange={handleChange}
+                            placeholder='confirm password' required />
+                    </p>
+                    <p>
+                        <span className="fa fa-globe"></span>
+                        <input type="text" name='country' value={user && user.country} onChange={handleChange}
+                            placeholder='country' required />
+                    </p>
+                    <div className="buttons">
+                        <Button caption="Save" click={handleClick} />
+                        <Button caption="Cancel" click={handleCancelClick} secondary />
+                    </div>
+                </fieldset>
+            </form>
+            <footer>
+                {loading ? <i className="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                    : (
+                        <>
+                            {error && <p>{error.toUpperCase()}</p>}
+                        </>
+                    )}
+            </footer>
         </div>
     );
 }

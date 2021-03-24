@@ -48,9 +48,18 @@ table {
 	border-spacing: 0;
 }
 
+:root{
+  --grey-dark-color: #2c3338;
+  --grey-light-color: #3b4148;
+  --text-dark-color: #606468;
+  --text-light-color: #eee;
+  --primary-color: #ea4c88;
+  --secondary-color: #6D595E;
+}
+
 body {
-  background: #2c3338;
-  color: #606468;
+  background: var(--grey-dark-color);
+  color: var(--text-dark-color);
   font: 87.5%/1.5em 'Open Sans', sans-serif;
   margin: 0;
 }
@@ -78,19 +87,7 @@ a:hover {
   text-decoration: underline;
 }
 
-.link {
-  color: #eee;
-  text-decoration: none;
-  cursor: pointer;
-}
 
-.link:hover {
-  text-decoration: underline;
-}
-
-.fa-arrow-right {
-  margin-left: 3px;
-}
 
 input {
   border: none;

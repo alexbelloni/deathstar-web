@@ -8,6 +8,8 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import Arrow from './components/Arrow';
+
 require('dotenv').config()
 
 function App() {
@@ -25,18 +27,22 @@ function App() {
 
   return (
     <Router>
-      <header></header>
-      <Switch>
-        <Route path="/edit">
-          <UserEdit setUser={setUser} />
-        </Route>
-        <Route path="/profile">
-          <Profile user={loggedUser} signOut={signOut} />
-        </Route>
-        <Route path="/">
-          <Login setUser={setUser} />
-        </Route>
-      </Switch>
+      <div className="container app">
+        <Switch>
+          <Route path="/edit">
+            <UserEdit setUser={setUser} />
+          </Route>
+          <Route path="/profile">
+            <Profile user={loggedUser} signOut={signOut} />
+          </Route>
+          <Route path="/">
+            <Login setUser={setUser} />
+          </Route>
+        </Switch>
+        <footer>
+          <Arrow caption="© 2021 Death Star" click={() => { window.location = "https://alexandrebelloni.com" }} />
+        </footer>
+      </div>
     </Router>
   )
 }

@@ -1,0 +1,15 @@
+.arrow .caption {
+  cursor: pointer;
+}
+
+.arrow .caption {
+  color: #eee;
+}
+
+.arrow:hover {
+  opacity: 0.9;
+}
+
+.arrow .fa-arrow-right {
+  margin-left: 3px;
+}
