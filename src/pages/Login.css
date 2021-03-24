@@ -1,0 +1,12 @@
+#login .footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+#login .footer>* {
+    text-align: center;
+    margin: 5px 0;
+}

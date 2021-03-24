@@ -49,3 +49,8 @@
     justify-content: space-between;
     color: rgb(187, 183, 183);
 }
+
+.info-user .delete {
+    color: #d44179;
+    cursor: pointer;
+} 
