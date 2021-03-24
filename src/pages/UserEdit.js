@@ -25,7 +25,6 @@ const UserEdit = (props) => {
         setLoading(true);
 
         const data = user;
-        //console.log(user); return
 
         DataSender({
             route: `user`,

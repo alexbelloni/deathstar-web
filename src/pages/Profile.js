@@ -11,7 +11,7 @@ const Profile = (props) => {
     const [token] = useState(loggedUser && loggedUser.token);
     const [loading, setLoading] = useState(false);
     const [redirect, setRedirect] = useState("");
-    const [error, /*setError*/] = useState();
+    const [error, setError] = useState();
 
     useEffect(() => {
         setLoading(true);
@@ -36,34 +36,36 @@ const Profile = (props) => {
         props.signOut(() => setRedirect('/'));
     }
 
-    // function deleteUser(e, id) {
-    //     e.preventDefault();
+    function deleteUser(e, id) {
+        e.preventDefault();
 
-    //     //setLoading(true);
+        //setLoading(true);
 
-    //     DataSender({
-    //         route: `user/${id}`,
-    //         method: 'DELETE'
-    //     })
-    //         .then(res => res.json())
-    //         .then(res => {
-    //             if (res.error) {
-    //                 setError(res.error);
-    //                 //setLoading(false);
-    //             } else {
-    //                 //setLoading(false);
-    //                 setUsers(users.filter(u=>u._id !== id))
-    //             }
-    //         })
-    //         .catch(e => {
-    //             setError(e.message);
-    //             //setLoading(false);
-    //         });
-    // }
+        DataSender({
+            route: `user/${id}`,
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(res => {
+                if (res.error) {
+                    setError(res.error);
+                    //setLoading(false);
+                } else {
+                    //setLoading(false);
+                    setUsers(users.filter(u=>u._id !== id))
+                }
+            })
+            .catch(e => {
+                setError(e.message);
+                //setLoading(false);
+            });
+    }
 
     if (!loggedUser) return <Redirect to="/" />
 
     if (redirect) return <Redirect to={redirect} />
+
+    const admin = loggedUser.id === process.env.REACT_APP_ADMIN_ID;
 
     return (
         <>
@@ -87,7 +89,7 @@ const Profile = (props) => {
                     <div key={i} className="user">
                         <div className="info-user">
                             <span className="username">
-                                {/* <span className="delete" onClick={e=>deleteUser(e, u._id)}><i className="fa fa-times-circle"></i> </span> */}
+                                {admin && <span className="delete" onClick={e=>deleteUser(e, u._id)}><i className="fa fa-times-circle"></i> </span> }
                                 <span className="fa fa-user"></span> {u.name}</span>
                             <span className="email">{u.country || "-"}</span>
                         </div>
