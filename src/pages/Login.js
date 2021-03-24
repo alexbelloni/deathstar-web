@@ -61,7 +61,10 @@ const Login = (props) => {
     }
 
     if (redirect) return <Redirect to={redirect} />
-
+console.log('here',
+process.env.REACT_APP_BASE_URL,
+process.env.REACT_APP_TRIAL_EMAIL,
+process.env.REACT_APP_TRIAL_PASSWORD)
     return (
         <>
             {redirect ? <Redirect to={redirect} />
