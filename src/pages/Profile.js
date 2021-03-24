@@ -10,10 +10,9 @@ const Profile = (props) => {
     const [token] = useState(loggedUser && loggedUser.token);
     const [loading, setLoading] = useState(false);
     const [redirect, setRedirect] = useState("");
-    const [error, setError] = useState();
+    const [error, /*setError*/] = useState();
 
     useEffect(() => {
-        if (!token) return
         setLoading(true);
 
         DataSender({
@@ -30,36 +29,36 @@ const Profile = (props) => {
                 console.log(e);
                 setLoading(false);
             });
-    }, []);
+    }, [token]);
 
     const handleClick = () => {
         props.signOut(() => setRedirect('/'));
     }
 
-    function deleteUser(e, id) {
-        e.preventDefault();
+    // function deleteUser(e, id) {
+    //     e.preventDefault();
 
-        //setLoading(true);
+    //     //setLoading(true);
 
-        DataSender({
-            route: `user/${id}`,
-            method: 'DELETE'
-        })
-            .then(res => res.json())
-            .then(res => {
-                if (res.error) {
-                    setError(res.error);
-                    //setLoading(false);
-                } else {
-                    //setLoading(false);
-                    setUsers(users.filter(u=>u._id != id))
-                }
-            })
-            .catch(e => {
-                setError(e.message);
-                //setLoading(false);
-            });
-    }
+    //     DataSender({
+    //         route: `user/${id}`,
+    //         method: 'DELETE'
+    //     })
+    //         .then(res => res.json())
+    //         .then(res => {
+    //             if (res.error) {
+    //                 setError(res.error);
+    //                 //setLoading(false);
+    //             } else {
+    //                 //setLoading(false);
+    //                 setUsers(users.filter(u=>u._id !== id))
+    //             }
+    //         })
+    //         .catch(e => {
+    //             setError(e.message);
+    //             //setLoading(false);
+    //         });
+    // }
 
     if (!loggedUser) return <Redirect to="/" />
 
