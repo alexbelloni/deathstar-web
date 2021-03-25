@@ -70,7 +70,9 @@ const Profile = (props) => {
     return (
         <>
             <div className="profile">
-                <img className="avatar" alt='avatar' src={loggedUser.avatar} />
+                <img className="avatar" alt='avatar' src={loggedUser.avatar || 
+                    "https://lolfilter.com/files/thumbnails/950142184754388.png"
+                    } />
                 <div className="info">
                     <span className="username">{props.user.name}</span>
                     <span className="email">{props.user.email}</span>
