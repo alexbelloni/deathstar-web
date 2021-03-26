@@ -39,8 +39,6 @@ const Profile = (props) => {
     function deleteUser(e, id) {
         e.preventDefault();
 
-        //setLoading(true);
-
         DataSender({
             token,
             route: `user/${id}`,
@@ -50,15 +48,12 @@ const Profile = (props) => {
             .then(res => {
                 if (res.error) {
                     setError(res.error);
-                    //setLoading(false);
                 } else {
-                    //setLoading(false);
                     setUsers(users.filter(u=>u.id !== id))
                 }
             })
             .catch(e => {
                 setError(e.message);
-                //setLoading(false);
             });
     }
 

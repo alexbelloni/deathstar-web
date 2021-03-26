@@ -3,6 +3,7 @@ import { useState } from "react";
 import DataSender from '../api/DataSender';
 import { Redirect } from "react-router-dom";
 import Button from '../components/Button';
+import Utils from '../Utils';
 
 const UserEdit = (props) => {
     const [error, setError] = useState();
@@ -22,7 +23,18 @@ const UserEdit = (props) => {
             return
         }
 
+        if (user.password !== user.passwordconfirm) {
+            setError("Password not confirmed");
+            return
+        }
+
+        if (!Utils.validateEmail(user.email)) {
+            setError("E-mail invalid");
+            return
+        }
+
         setLoading(true);
+        Utils.applyLoadingForm("#form-useredit", true);
 
         const data = user;
 
@@ -43,7 +55,10 @@ const UserEdit = (props) => {
             })
             .catch(e => {
                 setError(e.message);
+            })
+            .finally(() => {
                 setLoading(false);
+                Utils.applyLoadingForm("#form-useredit", false);
             });
     }
 
@@ -61,7 +76,7 @@ const UserEdit = (props) => {
 
     return (
         <div id="user-edit">
-            <form>
+            <form id="form-useredit">
                 <fieldset className="clearfix">
                     <p>
                         <span className="fa fa-user"></span>

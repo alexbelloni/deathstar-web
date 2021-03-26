@@ -87,7 +87,10 @@ a:hover {
   text-decoration: underline;
 }
 
-
+.loading{
+  cursor: wait !important;
+  opacity: 0.5 !important;
+}
 
 input {
   border: none;
