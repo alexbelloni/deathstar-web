@@ -93,7 +93,7 @@ const Profile = (props) => {
                         <div className="info-user">
                             <span className="username">
                                 {admin && <span className="delete" onClick={e=>deleteUser(e, u.id)}><i className="fa fa-times-circle"></i> </span> }
-                                <span className="fa fa-user"></span> {u.name}</span>
+                                {u.evaluator ? <span className="fa fa-star"></span> : <span className="fa fa-user"></span>} {u.name}</span>
                             <span className="email">{u.country || "-"}</span>
                         </div>
                     </div>
