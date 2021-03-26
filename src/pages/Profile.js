@@ -42,6 +42,7 @@ const Profile = (props) => {
         //setLoading(true);
 
         DataSender({
+            token,
             route: `user/${id}`,
             method: 'DELETE'
         })
@@ -52,7 +53,7 @@ const Profile = (props) => {
                     //setLoading(false);
                 } else {
                     //setLoading(false);
-                    setUsers(users.filter(u=>u._id !== id))
+                    setUsers(users.filter(u=>u.id !== id))
                 }
             })
             .catch(e => {
@@ -91,7 +92,7 @@ const Profile = (props) => {
                     <div key={i} className="user">
                         <div className="info-user">
                             <span className="username">
-                                {admin && <span className="delete" onClick={e=>deleteUser(e, u._id)}><i className="fa fa-times-circle"></i> </span> }
+                                {admin && <span className="delete" onClick={e=>deleteUser(e, u.id)}><i className="fa fa-times-circle"></i> </span> }
                                 <span className="fa fa-user"></span> {u.name}</span>
                             <span className="email">{u.country || "-"}</span>
                         </div>
