@@ -6,14 +6,13 @@ import Arrow from '../components/Arrow';
 import DataSender from '../api/DataSender';
 
 const Questions = (props) => {
+    const [loggedUser] = useState(props.user);
     const [error, setError] = useState();
     const [loading, setLoading] = useState(false);
     const [redirect, setRedirect] = useState("");
     const [questions, setQuestions] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState();
     const [selectedAnswerIndexes, setSelectedAnswerIndexes] = useState([]);
-
-    const loggedUser = props.user;
 
     useEffect(() => {
         setLoading(true);
@@ -32,10 +31,10 @@ const Questions = (props) => {
                 setLoading(false);
             })
             .catch(e => {
-                console.log(e);
+                setError(e.message);
                 setLoading(false);
             });
-    }, []);
+    }, [loggedUser]);
 
     if (redirect) return <Redirect to={redirect} />
     if (!loggedUser) return <Redirect to="/" />
