@@ -7,7 +7,7 @@ import Utils from '../Utils';
 
 const UserEdit = (props) => {
     const [error, setError] = useState();
-    const [user, setUser] = useState();
+    const [user, setUser] = useState({});
     const [loading, setLoading] = useState(false);
     const [redirect, setRedirect] = useState("");
 
@@ -18,7 +18,7 @@ const UserEdit = (props) => {
 
     function save() {
 
-        if (!user || !user.name || !user.email || !user.password) {
+        if (!user.name || !user.email || !user.password) {
             setError("Fields required");
             return
         }
@@ -75,30 +75,30 @@ const UserEdit = (props) => {
     if (redirect) return <Redirect to={redirect} />
 
     return (
-        <div id="user-edit">
+        <div id="user-edit" className="container">
             <form id="form-useredit">
                 <fieldset className="clearfix">
                     <p>
                         <span className="fa fa-user"></span>
-                        <input type="text" name='name' value={user && user.name} onChange={handleChange}
+                        <input type="text" name='name' value={user.name} onChange={handleChange}
                             placeholder='name *' required />
                     </p>
                     <p>
                         <span className="fa fa-envelope"></span>
-                        <input type="text" name='email' value={user && user.email} onChange={handleChange}
+                        <input type="text" name='email' value={user.email} onChange={handleChange}
                             placeholder='e-mail *' required />
                     </p>
                     <p><span className="fa fa-lock"></span>
-                        <input type="password" name='password' value={user && user.password} onChange={handleChange}
+                        <input type="password" name='password' value={user.password} onChange={handleChange}
                             placeholder='password *' required />
                     </p>
                     <p><span className="fa fa-lock"></span>
-                        <input type="password" name='passwordconfirm' value={user && user.passwordconfirm} onChange={handleChange}
+                        <input type="password" name='passwordconfirm' value={user.passwordconfirm} onChange={handleChange}
                             placeholder='confirm password' required />
                     </p>
                     <p>
                         <span className="fa fa-globe"></span>
-                        <input type="text" name='country' value={user && user.country} onChange={handleChange}
+                        <input type="text" name='country' value={user.country} onChange={handleChange}
                             placeholder='country' required />
                     </p>
                     <div className="buttons">
@@ -115,6 +115,7 @@ const UserEdit = (props) => {
                         </>
                     )}
             </footer>
+            {props.footer}
         </div>
     );
 }

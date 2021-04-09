@@ -49,7 +49,7 @@ const Profile = (props) => {
                 if (res.error) {
                     setError(res.error);
                 } else {
-                    setUsers(users.filter(u=>u.id !== id))
+                    setUsers(users.filter(u => u.id !== id))
                 }
             })
             .catch(e => {
@@ -64,11 +64,11 @@ const Profile = (props) => {
     const admin = loggedUser.id === process.env.REACT_APP_ADMIN_ID;
 
     return (
-        <>
+        <section className="container">
             <div className="profile">
-                <img className="avatar" alt='avatar' src={loggedUser.avatar || 
+                <img className="avatar" alt='avatar' src={loggedUser.avatar ||
                     "https://lolfilter.com/files/thumbnails/950142184754388.png"
-                    } />
+                } />
                 <div className="info">
                     <span className="username">{props.user.name}</span>
                     <span className="email">{props.user.email}</span>
@@ -76,18 +76,20 @@ const Profile = (props) => {
                 </div>
             </div>
             <div className="signout-area">
+                <Arrow caption="Quiz" icon='fa-rocket' click={() => setRedirect('questions')} />
                 <Arrow caption="Sign out" click={handleClick} />
             </div>
 
             <div className="separator"></div>
             <div className="users">
+
                 <p>Other Users:</p>
                 {loading && <i className="fa fa-spinner fa-pulse fa-2x fa-fw"></i>}
                 {!loading && users && users.filter(u => u.email !== props.user.email).sort((a, b) => a.name < b.name ? -1 : 1).map((u, i) => (
                     <div key={i} className="user">
                         <div className="info-user">
                             <span className="username">
-                                {admin && <span className="delete" onClick={e=>deleteUser(e, u.id)}><i className="fa fa-times-circle"></i> </span> }
+                                {admin && <span className="delete" onClick={e => deleteUser(e, u.id)}><i className="fa fa-times-circle"></i> </span>}
                                 {u.evaluator ? <span className="fa fa-star"></span> : <span className="fa fa-user"></span>} {u.name}</span>
                             <span className="email">{u.country || "-"}</span>
                         </div>
@@ -96,7 +98,8 @@ const Profile = (props) => {
             </div>
             <div className="separator"></div>
             {error && <p>{error.toUpperCase()}</p>}
-        </>
+            {props.footer}
+        </section>
     )
 }
 

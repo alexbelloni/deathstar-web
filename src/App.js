@@ -9,6 +9,7 @@ import {
   Route
 } from "react-router-dom";
 import Arrow from './components/Arrow';
+import Questions from './pages/Questions';
 
 require('dotenv').config()
 
@@ -25,23 +26,32 @@ function App() {
     if (callback) callback();
   }
 
+  const footer = (
+    <footer>
+      <Arrow caption="© 2021 Death Star" 
+      icon='fa-external-link'
+      click={() => { window.location = "https://alexandrebelloni.com" }} />
+    </footer>
+  )
+
   return (
     <Router>
-      <div className="container app">
+      <div className="app">
         <Switch>
           <Route path="/edit">
-            <UserEdit setUser={setUser} />
+            <UserEdit setUser={setUser} footer={footer} />
           </Route>
           <Route path="/profile">
-            <Profile user={loggedUser} signOut={signOut} />
+            <Profile user={loggedUser} signOut={signOut} footer={footer} />
+          </Route>
+          <Route path="/questions">
+            <Questions user={loggedUser}  footer={footer}/>
           </Route>
           <Route path="/">
-            <Login setUser={setUser} />
+            <Login setUser={setUser} footer={footer} />
           </Route>
         </Switch>
-        <footer>
-          <Arrow caption="© 2021 Death Star" click={() => { window.location = "https://alexandrebelloni.com" }} />
-        </footer>
+
       </div>
     </Router>
   )

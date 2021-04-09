@@ -45,11 +45,9 @@ const Login = (props) => {
                 }
             })
             .catch(e => {
-                setError(e.message);
-            })
-            .finally(()=>{
                 setLoading(false);
                 Utils.applyLoadingForm("#form-login", false);
+                setError(e.message);
             })
     }
 
@@ -72,7 +70,7 @@ const Login = (props) => {
     if (redirect) return <Redirect to={redirect} />
 
     return (
-        <>
+        <section className="container">
             {redirect ? <Redirect to={redirect} />
                 : (
                     <div id="login">
@@ -87,7 +85,7 @@ const Login = (props) => {
                                     <input type="password" name='password' value={user.password} onChange={handleChange}
                                         placeholder='password' required />
                                 </p>
-                                <Button caption="Sign In" click={handleClick} />
+                                <Button caption="Sign In" click={handleClick} readonly/>
                             </fieldset>
                         </form>
                         <div className="footer">
@@ -102,7 +100,8 @@ const Login = (props) => {
                         </div>
                     </div>
                 )}
-        </>
+                {props.footer}
+        </section>
     );
 }
 

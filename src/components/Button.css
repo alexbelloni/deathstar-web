@@ -1,14 +1,18 @@
-.button input[type="submit"] {
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    color: var(--text-light-color);
-    font-weight: bold;
-    text-transform: uppercase;
-    width: 280px;
-    cursor: pointer;
-  }
-  
-  .button input[type="submit"]:hover {
-    opacity: 0.9;
-  }
+.button {
+  text-align: center;
+}
+
+.button input {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 280px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.button input:hover {
+  opacity: 0.9;
+}
