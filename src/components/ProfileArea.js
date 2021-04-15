@@ -16,7 +16,7 @@ const Styled = styled.div`
     font-size: 1rem;
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: 10px 25px;
 }
 
 .info>* {
@@ -37,7 +37,6 @@ const ProfileArea = (props) => {
     return !user ? ""
         : (
             <Styled>
-                <div className="profile">
                     <img className="avatar" alt='avatar' src={user.avatar ||
                         "https://lolfilter.com/files/thumbnails/950142184754388.png"
                     } />
@@ -46,8 +45,6 @@ const ProfileArea = (props) => {
                         <span className="email">{user.email}</span>
                         <span className="email">{user.country}</span>
                     </div>
-
-                </div>
             </Styled>
         )
 }
