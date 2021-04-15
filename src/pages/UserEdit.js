@@ -95,6 +95,7 @@ const UserEdit = (props) => {
         const data = user;
 
         DataSender({
+            withoutToken: true,
             route: `user`,
             method: 'POST',
             data: JSON.stringify(data)
