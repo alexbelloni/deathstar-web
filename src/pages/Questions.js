@@ -15,9 +15,12 @@ const Styled = styled.div`
 }
 
 .warning {
-    padding: 10px 0;
+    padding: 10px 10px;
     display: flex;
     align-items: center;
+    border: 1px solid var(--secondary-color);
+    background-color: var(--grey-light-color);
+    margin-bottom: 20px; 
 }
 
 .warning>* {
@@ -114,7 +117,7 @@ const Questions = (props) => {
                                 <>
                                     <div className="warning">
                                         <span className="fa fa-exclamation-triangle"></span>
-                                        <span>It's an valid answer seleting all options or nothing.</span>
+                                        <span>It's an valid answer seleting more than one option or nothing.</span>
                                     </div>
                                     <div className="question">
                                         <span className="number">{currentQuestion && currentQuestion.order + 1} - </span>

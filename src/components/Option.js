@@ -12,11 +12,10 @@ const Styled = styled.div`
     }
 
     &&:hover {
-        font-size: 18px;
+        color: var(--text-light-color);
     }
 
     && .selected{
-        font-size: 18px;
         color: var(--primary-color);
     }
 
