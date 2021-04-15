@@ -1,9 +1,65 @@
-import './UserEdit.css';
 import { useState } from "react";
 import DataSender from '../api/DataSender';
 import { Redirect } from "react-router-dom";
-import Button from '../components/Button';
+import ColorButton from '../components/ColorButton';
 import Utils from '../Utils';
+import styled from 'styled-components'
+
+const Styled = styled.div`  
+    .user-edit {
+        width: 280px;
+    }
+    
+    form span {
+        background-color: #363b41;
+        border-radius: 3px 0px 0px 3px;
+        color: #606468;
+        display: block;
+        float: left;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        width: 50px;
+    }
+    
+    form input {
+        height: 50px;
+    }
+    
+    form input[type="text"], input[type="password"] {
+        background-color: #3b4148;
+        border-radius: 0px 3px 3px 0px;
+        color: #606468;
+        margin-bottom: 1em;
+        padding: 0 16px;
+        width: 230px;
+    }
+    
+    p {
+        text-align: center;
+    }
+    
+    p span {
+        padding-left: 5px;
+    }
+    
+    .footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+    }
+
+    .footer>* {
+        text-align: center;
+        margin: 5px 0;
+    }
+
+    .buttons>*{
+        margin-bottom: 15px;
+    }
+`
 
 const UserEdit = (props) => {
     const [error, setError] = useState();
@@ -49,8 +105,7 @@ const UserEdit = (props) => {
                     setError(res.error);
                     setLoading(false);
                 } else {
-                    props.setUser(res, () => setRedirect("/"));
-                    setLoading(false);
+                    setRedirect("/");
                 }
             })
             .catch(e => {
@@ -72,52 +127,53 @@ const UserEdit = (props) => {
         setRedirect("/");
     }
 
-    if (redirect) return <Redirect to={redirect} />
-
-    return (
-        <div id="user-edit" className="container">
-            <form id="form-useredit">
-                <fieldset className="clearfix">
-                    <p>
-                        <span className="fa fa-user"></span>
-                        <input type="text" name='name' value={user.name} onChange={handleChange}
-                            placeholder='name *' required />
-                    </p>
-                    <p>
-                        <span className="fa fa-envelope"></span>
-                        <input type="text" name='email' value={user.email} onChange={handleChange}
-                            placeholder='e-mail *' required />
-                    </p>
-                    <p><span className="fa fa-lock"></span>
-                        <input type="password" name='password' value={user.password} onChange={handleChange}
-                            placeholder='password *' required />
-                    </p>
-                    <p><span className="fa fa-lock"></span>
-                        <input type="password" name='passwordconfirm' value={user.passwordconfirm} onChange={handleChange}
-                            placeholder='confirm password' required />
-                    </p>
-                    <p>
-                        <span className="fa fa-globe"></span>
-                        <input type="text" name='country' value={user.country} onChange={handleChange}
-                            placeholder='country' required />
-                    </p>
-                    <div className="buttons">
-                        <Button caption="Save" click={handleClick} />
-                        <Button caption="Cancel" click={handleCancelClick} secondary />
-                    </div>
-                </fieldset>
-            </form>
-            <footer>
-                {loading ? <i className="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
-                    : (
-                        <>
-                            {error && <p>{error.toUpperCase()}</p>}
-                        </>
-                    )}
-            </footer>
-            {props.footer}
-        </div>
-    );
+    return redirect ? <Redirect to={redirect} />
+        : (
+            <Styled>
+                <div id="user-edit" className="container user-edit">
+                    <form id="form-useredit">
+                        <fieldset className="clearfix">
+                            <p>
+                                <span className="fa fa-user"></span>
+                                <input type="text" name='name' value={user.name} onChange={handleChange}
+                                    placeholder='name *' required />
+                            </p>
+                            <p>
+                                <span className="fa fa-envelope"></span>
+                                <input type="text" name='email' value={user.email} onChange={handleChange}
+                                    placeholder='e-mail *' required />
+                            </p>
+                            <p><span className="fa fa-lock"></span>
+                                <input type="password" name='password' value={user.password} onChange={handleChange}
+                                    placeholder='password *' required />
+                            </p>
+                            <p><span className="fa fa-lock"></span>
+                                <input type="password" name='passwordconfirm' value={user.passwordconfirm} onChange={handleChange}
+                                    placeholder='confirm password' required />
+                            </p>
+                            <p>
+                                <span className="fa fa-globe"></span>
+                                <input type="text" name='country' value={user.country} onChange={handleChange}
+                                    placeholder='country' required />
+                            </p>
+                            <div className="buttons">
+                                <ColorButton caption="Save" click={handleClick} />
+                                <ColorButton caption="Cancel" click={handleCancelClick} secondary />
+                            </div>
+                        </fieldset>
+                    </form>
+                    <footer>
+                        {loading ? <i className="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                            : (
+                                <>
+                                    {error && <p>{error.toUpperCase()}</p>}
+                                </>
+                            )}
+                    </footer>
+                    {props.footer}
+                </div>
+            </Styled>
+        );
 }
 
 export default UserEdit;

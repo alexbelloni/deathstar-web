@@ -78,15 +78,6 @@ body {
   box-sizing: border-box;
 }
 
-a {
-  color: #eee;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
 .loading{
   cursor: wait !important;
   opacity: 0.5 !important;

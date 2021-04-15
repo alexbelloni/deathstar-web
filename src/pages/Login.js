@@ -1,18 +1,71 @@
-import './Login.css';
-import { useState } from "react";
+import { useState, useContext } from "react";
 import DataSender from '../api/DataSender';
 import { Redirect } from "react-router-dom";
-import Button from '../components/Button';
+import Button from '../components/ColorButton';
 import Arrow from '../components/Arrow';
 import Utils from '../Utils';
+import { UserContext } from '../context';
+import styled from 'styled-components'
 
-require('dotenv').config()
+const Styled = styled.div` 
+#login {
+    width: 280px;
+  }
+  
+  form span {
+    background-color: #363b41;
+    border-radius: 3px 0px 0px 3px;
+    color: #606468;
+    display: block;
+    float: left;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    width: 50px;
+  }
+  
+  form input {
+    height: 50px;
+  }
+  
+  form input[type="text"], input[type="password"] {
+    background-color: #3b4148;
+    border-radius: 0px 3px 3px 0px;
+    color: #606468;
+    margin-bottom: 1em;
+    padding: 0 16px;
+    width: 230px;
+  }
+  
+  p {
+    text-align: center;
+  }
+  
+  p span {
+    padding-left: 5px;
+  }
+  
+  .footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
 
-const Login = (props) => {
+.footer>* {
+    text-align: center;
+    margin: 5px 0;
+}
+`
+
+const Login = () => {
     const [error, setError] = useState();
     const [user, setUser] = useState({ email: "", password: "" });
     const [loading, setLoading] = useState(false);
     const [redirect, setRedirect] = useState("");
+
+    const context = useContext(UserContext);
 
     const handleClick = e => {
         if (e) e.preventDefault();
@@ -32,6 +85,7 @@ const Login = (props) => {
         Utils.applyLoadingForm("#form-login", true);
 
         DataSender({
+            withoutToken: true,
             route: `login`,
             method: 'POST',
             data: JSON.stringify(data)
@@ -39,9 +93,13 @@ const Login = (props) => {
             .then(res => res.json())
             .then(res => {
                 if (res.error) {
+                    setLoading(false);
+                    Utils.applyLoadingForm("#form-login", false);
                     setError(res.error);
+                    setUser({ email: "", password: "" });
                 } else {
-                    props.setUser(res, () => setRedirect('/profile'));
+                    context.setUser(res);
+                    setRedirect('/profile');
                 }
             })
             .catch(e => {
@@ -67,12 +125,10 @@ const Login = (props) => {
         setRedirect("edit")
     }
 
-    if (redirect) return <Redirect to={redirect} />
-
-    return (
-        <section className="container">
-            {redirect ? <Redirect to={redirect} />
-                : (
+    return redirect ? <Redirect to={redirect} />
+        : (
+            <Styled>
+                <section className="container">
                     <div id="login">
                         <form id="form-login">
                             <fieldset className="clearfix">
@@ -85,7 +141,7 @@ const Login = (props) => {
                                     <input type="password" name='password' value={user.password} onChange={handleChange}
                                         placeholder='password' required />
                                 </p>
-                                <Button caption="Sign In" click={handleClick} readonly/>
+                                <Button caption="Sign In" click={handleClick} readonly />
                             </fieldset>
                         </form>
                         <div className="footer">
@@ -99,10 +155,9 @@ const Login = (props) => {
                                 )}
                         </div>
                     </div>
-                )}
-                {props.footer}
-        </section>
-    );
+                </section>
+            </Styled>
+        );
 }
 
 export default Login;
