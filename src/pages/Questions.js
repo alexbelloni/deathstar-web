@@ -100,7 +100,7 @@ const Questions = (props) => {
 
     function handleDone(e, order) {
         if (order >= questions.length - 1) {
-            setRedirect("/profile");
+            setRedirect("/users");
         } else {
             setCurrentQuestion(questions[order + 1]);
             setSelectedAnswerIndexes([]);

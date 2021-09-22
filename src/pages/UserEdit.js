@@ -105,14 +105,13 @@ const UserEdit = (props) => {
                 if (res.error) {
                     setError(res.error);
                     setLoading(false);
+                    Utils.applyLoadingForm("#form-useredit", false);
                 } else {
                     setRedirect("/");
                 }
             })
             .catch(e => {
                 setError(e.message);
-            })
-            .finally(() => {
                 setLoading(false);
                 Utils.applyLoadingForm("#form-useredit", false);
             });

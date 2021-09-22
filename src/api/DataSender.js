@@ -1,5 +1,5 @@
 module.exports = ({ token, route, method, data, withoutToken }) => {
-    const url = `${process.env.REACT_APP_BASE_URL}${route}`;
+    const url = new URL(route, process.env.REACT_APP_BASE_URL).href;
 
     return new Promise((resolve, reject) => {
         if (!withoutToken && !token) reject({message:'Token not found.'});

@@ -6,4 +6,9 @@ Click on "Free Trial" link to see a list of users receiving via the API.
 
 [Demo](https://deathstar-web.vercel.app/)  
 
-React | Context | Styled-Components
+React | Context | Styled-Components  
+
+## .env
+
+REACT_APP_BASE_URL= base url of the api  
+

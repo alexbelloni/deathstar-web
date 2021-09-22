@@ -99,7 +99,7 @@ const Login = () => {
                     setUser({ email: "", password: "" });
                 } else {
                     context.setUser(res);
-                    setRedirect('/profile');
+                    setRedirect('/users');
                 }
             })
             .catch(e => {

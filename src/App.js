@@ -43,7 +43,7 @@ function App() {
       <AuthProvider>
         <Router>
           <Switch>
-            <Route path="/profile">
+            <Route path="/users">
               <Page key="profile" quiz component={<Users />} />
             </Route>
             <Route path="/questions">
