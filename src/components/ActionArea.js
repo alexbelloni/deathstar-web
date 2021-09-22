@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 import Arrow from './Arrow';
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { UserContext } from '../context';
 
 const Styled = styled.div`  
     display: flex;
@@ -12,7 +11,6 @@ const Styled = styled.div`
 
 const ActionArea = (props) => {
     const [redirect, setRedirect] = useState("");
-    const context = useContext(UserContext)
 
     return redirect ? <Redirect to={redirect} />
         : (
