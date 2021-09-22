@@ -19,10 +19,7 @@ const ActionArea = (props) => {
             <Styled>
                 {props.quiz && <Arrow caption="Quiz" icon='fa-rocket' click={() => setRedirect('/questions')} />}
                 {props.profile && <Arrow caption="Profile" icon="fa-user" click={() => setRedirect('/users')} />}
-                <Arrow caption="Sign out" icon="fa-sign-out" click={() => {
-                    context.setUser();
-                    setRedirect('/');
-                }} />
+                <Arrow caption="Sign out" icon="fa-sign-out" click={() => setRedirect('/')} />
             </Styled>
         )
 }

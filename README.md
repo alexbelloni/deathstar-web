@@ -11,4 +11,7 @@ React | Context | Styled-Components
 ## .env
 
 REACT_APP_BASE_URL= base url of the api  
+REACT_APP_TRIAL_PASSWORD=  
+REACT_APP_TRIAL_EMAIL=  
+REACT_APP_ADMIN_ID=  
 
